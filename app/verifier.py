@@ -13,7 +13,6 @@ exactly the kind of thing that should have a human look at it.
 """
 from dataclasses import dataclass, field
 
-
 # Maps a claim tag the drafting agent is allowed to use -> the evidence
 # field(s) that must be true for the claim to be verifiable.
 CLAIM_REQUIREMENTS = {

@@ -24,7 +24,8 @@ def draft(evidence: dict) -> tuple[str, list[str]]:
         lines.append("- The originating IP address for this order matches the billing country.")
     if evidence.get("prior_clean_order_count", 0) >= 2:
         claims.append("REPEAT_CUSTOMER")
-        lines.append(f"- The cardholder has {evidence['prior_clean_order_count']} prior clean orders with no disputes.")
+        count = evidence['prior_clean_order_count']
+        lines.append(f"- The cardholder has {count} prior clean orders with no disputes.")
     if not evidence.get("refund_already_issued"):
         claims.append("NO_PRIOR_REFUND")
         lines.append("- No refund has been issued for this transaction.")
@@ -32,6 +33,7 @@ def draft(evidence: dict) -> tuple[str, list[str]]:
     if not lines:
         letter = "Insufficient evidence to contest this dispute. Recommend accepting the chargeback."
     else:
-        letter = "We respectfully submit the following evidence in response to this dispute:\n" + "\n".join(lines)
+        intro = "We respectfully submit the following evidence in response to this dispute:"
+        letter = intro + "\n" + "\n".join(lines)
 
     return letter, claims

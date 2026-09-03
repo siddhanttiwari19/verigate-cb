@@ -33,7 +33,7 @@ def make_dispute(dispute_id: int) -> dict:
     score -= 2 if reason == "fraud" and not delivery_signature_matches_cardholder else 0
 
     winnable = score >= 3
-    if random.random() < 0.12:  # simulate real-world label noise
+    if random.random() < 0.12:  # simulate real-world label noise (issuer discretion, partial evidence, etc.)
         winnable = not winnable
 
     evidence = {
