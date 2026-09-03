@@ -8,8 +8,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
 
-# Non-root user — don't run production containers as root
-RUN useradd --create-home appuser
+# Non-root user — don't run production containers as root.
+# Must chown /app before switching, since WORKDIR/COPY above ran as root
+# and the appuser otherwise has no write permission to generate data here.
+RUN useradd --create-home appuser && chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 8000
