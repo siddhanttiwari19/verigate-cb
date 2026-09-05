@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     # --- Rate limiting ---
     rate_limit_per_minute: int = 30
 
+    # --- CORS: origins allowed to call this API from a browser ---
+    allowed_origins: list[str] = ["http://localhost:3000"]
+
     # --- Drift monitoring ---
     drift_check_window: int = 50              # rolling window size, in disputes
     drift_alert_std_devs: float = 2.0         # flag when live mean shifts this many std devs
